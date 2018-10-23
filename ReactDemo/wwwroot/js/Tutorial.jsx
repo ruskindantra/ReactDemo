@@ -1,16 +1,20 @@
-﻿class CommentBox extends React.Component {
+﻿class Comment extends React.Component {
+    rawMarkup() {
+        const md = new Remarkable();
+        const rawMarkup = md.render(this.props.children.toString());
+        return { __html: rawMarkup };
+    }
+
     render() {
+        const md = new Remarkable();
         return (
-            <div className="commentBox">
-                <h1>Comments</h1>
-                <CommentList />
-                <CommentForm />
+            <div className="comment">
+                <h2 className="commentAuthor">{this.props.author}</h2>
+                <span dangerouslySetInnerHTML={this.rawMarkup()} />
             </div>
         );
     }
 }
-
-ReactDOM.render(<CommentBox />, document.getElementById('content'));
 
 class CommentList extends React.Component {
     render() {
@@ -36,14 +40,16 @@ class CommentForm extends React.Component {
     }
 }
 
-class Comment extends React.Component {
+class CommentBox extends React.Component {
     render() {
-        const md = new Remarkable();
         return (
-            <div className="comment">
-                <h2 className="commentAuthor">{this.props.author}</h2>
-                {md.render(this.props.children.toString())}
+            <div className="commentBox">
+                <h1>Comments</h1>
+                <CommentList />
+                <CommentForm />
             </div>
         );
     }
 }
+
+ReactDOM.render(<CommentBox />, document.getElementById('content'));

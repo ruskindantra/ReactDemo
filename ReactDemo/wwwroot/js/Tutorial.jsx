@@ -36,22 +36,20 @@ class CommentForm extends React.Component {
 }
 
 class CommentBox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { data: [] };
+    }
+    
     render() {
         return (
             <div className="commentBox">
                 <h1>Comments</h1>
-                <CommentList data={this.props.data} />
+                <CommentList data={this.state.data} />
                 <CommentForm />
             </div>
         );
     }
 }
 
-
-const data = [
-    { Id: 1, Author: 'Daniel Lo Nigro', Text: 'Hello ReactJS.NET World!' },
-    { Id: 2, Author: 'Pete Hunt', Text: 'This is one comment' },
-    { Id: 3, Author: 'Jordan Walke', Text: 'This is *another* comment' },
-];
-
-ReactDOM.render(<CommentBox data={data} />, document.getElementById('content'));
+ReactDOM.render(<CommentBox url="/comments" />, document.getElementById('content'));

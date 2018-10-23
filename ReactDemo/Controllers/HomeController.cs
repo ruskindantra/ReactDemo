@@ -33,6 +33,16 @@ namespace ReactDemo.Controllers
             };
         }
         
+        [Route("comments/new")]
+        [HttpPost]
+        public ActionResult AddComment(CommentModel comment)
+        {
+            // Create a fake ID for this comment
+            comment.Id = _comments.Count + 1;
+            _comments.Add(comment);
+            return Content("Success :)");
+        }
+        
         [Route("comments")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Comments()
